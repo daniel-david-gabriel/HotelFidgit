@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script src="jquery-1.10.2.js"></script>
+    <script>
+var mid_x, mid_y;
+var width, height;
+
+//load images
+var imageFiles = ["00000011.png", "00000016.png", "00000021.png", "00000026.png", "00000031.png", "00000036.png", "00000041.png", "00000046.png", "00000051.png", "00000056.png", "00000061.png", "00000066.png", "00000071.png", "00000076.png", "00000012.png", "00000017.png", "00000022.png", "00000027.png", "00000032.png", "00000037.png", "00000042.png", "00000047.png", "00000052.png", "00000057.png", "00000062.png", "00000067.png", "00000072.png", "00000013.png", "00000018.png", "00000023.png", "00000028.png", "00000033.png", "00000038.png", "00000043.png", "00000048.png", "00000053.png", "00000058.png", "00000063.png", "00000068.png", "00000073.png", "00000014.png", "00000019.png", "00000024.png", "00000029.png", "00000034.png", "00000039.png", "00000044.png", "00000049.png", "00000054.png", "00000059.png", "00000064.png", "00000069.png", "00000074.png", "00000015.png", "00000020.png", "00000025.png", "00000030.png", "00000035.png", "00000040.png", "00000045.png", "00000050.png", "00000055.png", "00000060.png", "00000065.png", "00000070.png", "00000075.png"];
+
+//Load background
+var room = "Room.jpg";
+var black = "Black.png";
+var gradient = "gradient.png";
+
+//load adjectives
+var adjectivces = ["Refreshing", "Foolish", "Beautiful", "The Biggest", "Minimum", "Gentle", "Gentlemanly", "Savage's", "Linguistic", "Peaceful", "Severe", "Stern", "High-speed", "Rapid", "Magical", "Devil's", "Angel's", "Angelic", "Divine", "Gods' And Goddesses'", "Red", "Blue", "Green", "Indigo", "Amber", "Sudden", "Lovely", "Cherished", "The First", "Crude", "Unearthly", "Smooth", "Great", "Predicted", "Expected", "Dreamlike", "Dreamy", "Maiden's", "Girl's", "Young Man's", "Concerning Reverse,", "Paradoxical", "Legendary", "Pure", "Impure", "Pubertal", "Youthful", "Pacific", "Arctic", "The Antarctic", "Scandinavian", "Brazilian", "Guinean", "Polish", "Belgian", "Traditional", "Unsuccessful", "Successful", "Victorious", "Defeated", "Bizarre", "Grotesque", "Abnormal", "Quiet", "Noisy", "Hard", "Soft", "Mild", "Liberian", "Flexible", "Smashed", "Congealed", "Tomorrow's", "Yesterday's", "Future", "Past", "The Last Year's", "Forgotten", "Valedictory", "Waiting", "Holiday", "Submarine", "Mountain's", "Forest's", "Imaginary", "Your", "Mesopotamian", "Metallic", "Aluminum", "Titanium", "Old-fashioned", "Familiar", "Carefree", "Cold", "Warm", "Doubtful", "Truthful", "Opened", "Open", "Free", "Wandering", "Changeful", "Evening", "Tense", "Courageous", "Hiding", "Concealed", "Afternoon", "Morning", "Early Morning", "Midnight", "The Caspian Sea", "The Black Sea's", "The Yellow Sea's", "The Red Sea's", "Popular", "Usual", "Peaceful", "Uneventful", "The Danube River's", "Paris", "Vacant", "Ebony", "Decorated", "Retrospective", "Vivid", "Clear", "Real", "Realistic", "Fancy", "Fantastic", "Dictated", "Regular", "Repeated", "Every Day,", "Eternal", "Tempting", "Fortunate", "Sorrowful", "Mysterious", "Strange", "Incomprehensible", "Automatic", "Mixed", "Crossed", "Sadistic", "Terrified", "Meekly", "Careful", "Bold", "Dynamic", "Lively", "Fresh", "Rotten", "Confused", "Healed", "Finished", "Defunct", "Aromatic", "Delicious", "Tasty", "Bitter", "Sweet", "Refined", "Smart", "Bursting", "Fawning", "Maniacal", "Doubtful", "Classical", "Avant-garde", "Futuristic", "Unheard-of", "Unconcealed", "White", "Happy", "Flight", "Delinquency", "Defective", "Healthy", "Expensive", "Lonely", "Solitary", "Summer", "Winter", "Spring", "Autumn", "Early Morning", "Respectable", "Absolute", "Cramming", "Vigilant", "Sometime", "Adult", "Child's", "Upside-down", "Easygoing", "Slave's", "Drooping", "Flowery", "Flowering", "Blooming", "Soiled", "Pleasant", "Lovable", "Swollen", "Fluffy", "Watery", "Burned", "Scorched", "Lovesick", "Love", "Tigris's", "Equatorial", "Shiny", "Glittering", "Hellish", "Infernal", "Ultimate", "Supreme", "Perfect", "Imperfect", "Burning", "Boiled", "Newborn", "Logical", "Philosophical", "Franz Kafka's", "Elastic", "Surefooted", "Peculiar", "Lonely", "Upset", "Tired", "Retraced", "Straight", "Liberal", "Conservative", "Conservative", "Aggressive", "Tribal", "Peaceful", "Orthodox", "Heretical", "Heterodox", "Queer", "Stingy", "Rare", "Sole", "Best", "Greatest", "Nile River's", "Shaking", "Sturdy", "Poor", "Twinkle", "Flowing", "Lone Wolf's", "Ordinary", "Scientific", "Literary", "Problematic", "Subjective", "Proposed", "Neat", "Captured", "Mechanical", "Organic", "Inorganic", "Unrivaled", "Growing", "Major", "Minor", "Salty", "Hot", "Fated", "Reviving", "Inside", "Outer", "Removed", "Joined", "Excluded", "Terrible", "Bodily", "Physical", "Dove's", "Hawk's", "Exclusive", "Morning Market's", "Rhythmic", "Celtic", "Primitive", "Uncivilized", "Drawn", "Understood", "Skeptical", "Profitable", "Lost", "Dyed", "Unknown", "Triumphal", "Disorderly", "Drunken", "Stolen", "Artificial", "Starchy", "Organic", "Inorganic", "Righteous", "Evil", "Planned", "Exchanged", "False", "Movie's", "Photographic", "Big", "Huge", "Great", "Expanded", "Tiny", "Little", "Small", "Pleasant", "Good Balanced", "Dazzling", "Bourgogne's", "Easter's", "Wild", "Flower Field's", "Serene", "Favorable", "Cool", "Sincere", "Serious", "Jokey", "Sinful", "Plastic", "Kindhearted", "Roaring", "Famous", "Celebrated", "The First", "The Second", "The Third", "Homelike", "Supposed", "Improper", "Imperious", "Commanding", "Fresh", "Old", "Egocentric", "Intangible", "Silent", "Full-length", "Mature", "Precocious", "Unripe", "Endless", "Dead", "Final", "Empty", "Spoilt", "Exceeded", "Salzburg's", "Thames River's", "El Salvador's", "Greenwich's", "Dim", "Dirty", "Gloomy", "Gray", "Strange", "Advanced", "Lower", "The Upper-class", "The Middle-class", "The Lower-class", "Noble", "Friendly", "Model", "Nervous", "Consulting", "Insulting", "Wiretapped", "Delinquent", "Useless", "Arrogant", "Prosperous", "Replace", "Scrappy", "Deserted", "Heroic", "Beautiful", "Handy", "Rich", "Possible", "Impossible", "Temporary", "Exotic", "Foreign", "Barbarous", "Kavkaz's", "Azerbaidjan's", "Georgia's", "Ecuadorian", "Khmer's", "Woman's", "Men's", "Social", "Kyrgyz's", "Culminated", "Large-scale", "Small-scale", "Non-violence", "Scientific", "Unscientific", "Revealed", "Proved", "Solved", "Invented", "Mysterious", "Grotesque", "Guest's", "Special Employee", "Gothic", "Surrealism", "Advertised", "Concise", "Controlled", "Compatible", "Boss", "Seasonable", "Stimulative", "Ecstatic", "General", "Partial", "Suspicious", "Seamless", "Hopeful", "Methodical", "Mediterranean Sea's", "Mistaken", "Expected", "Unexpected", "Privileged Classes's", "Specific", "Army's", "Standard", "Stealthy", "The West-type", "Oriental-type", "Universal", "The Solar System's", "Galaxy's", "The Earth's", "Tough", "Clean", "Midsummer's", "Burning", "Thin", "Unhappy", "Invalid", "Horizontal", "Vertical", "Unbalanced", "Exciting", "Fearful", "Formidable", "Dizzy", "Excited", "Cheerful", "Slow", "Slow-life", "Luscious", "Dulcet", "Sentimental", "Concentrated", "Elective", "Chosen", "Full", "Buried", "Newborn", "Dada", "Dadaism's", "Rigged", "Fashionable", "Czechoslovakian", "Technical", "Various", "Machine-readable", "Digitized", "Bookish", "Armchair", "Firm", "A Series Of", "Virtual", "Imaginative", "Natural", "Blunt", "Mental", "Conditional", "Unconditional", "Tropical", "Enough", "Railway Line's", "Meaningless", "Absurd", "Inland", "Coastal", "Delicate", "Liberal", "Nouvelle Vague's", "Astonishing", "Explanatory", "Stupid", "Abandoned", "High Technology", "Hybrid", "Leading", "Ordinary", "Non-regular", "Regular", "Unfavorable", "Favorable", "Urbanized", "Byzantine", "Bivouacking", "Brave", "Effeminate", "Extempore", "Golden", "Secondhand", "One-way", "Self-similarity", "Soothing", "Brussels's", "Pret-a-porter", "Pro-patent", "Hourly", "Broad", "Minute", "Super-large", "High-rise", "Crowded", "Independent", "Merit-system's", "Memorial", "Uncultured", "Solid-gold", "Greedy", "Insatiable", "Voracious", "Common", "Luxembourg's", "Revolutionary", "Ready-made", "Attic's", "Processed", "Individual", "Irrational", "Notable", "Unyielding", "Monochrome", "Skilled", "Impatiently", "Troublesome", "Stumpy", "Thick-set", "Oral", "Upright", "Communistic", "Democratic", "Economically-minded", "Scarlet", "Hollywood", "Plain-spoken", "Top-Ranking", "Top-Secret", "Topsyturvy", "Tooth-less", "Screwy", "Prefactory", "Obsessive", "Lyric", "Breezy", "Stalwart", "Luxury", "Knightly", "Nosy", "Odious", "Pancreatic", "Petty", "Petulant", "Slim", "Timidity", "Watchful", "Wishy", "Wishful", "Zestful", "Zealous", "Zonal", "Absurd", "Abstruse", "Abstracted", "Abstemious", "Adjacent", "Adept", "Adipose", "Aesthetic", "Airworthy", "Amiable", "Ancestral", "Armed", "Assiduous", "Baroque", "Barren", "Bawdy", "Bicameral", "Biblical", "Blank", "Blotchy", "Bossy", "Bubbly", "Cheerful", "Cunky", "Clayey", "Cloze", "Combustible", "Comfortably", "Contrary", "Crumby", "Dauntless", "Defamatory", "Delinquent", "Delightful", "Deserted", "Dry", "Ecological", "Extra", "Fizzy", "Flaccid", "Fluent", "Frisky", "Frizzy", "Gnawing", "Groggy", "Heartbreaking", "Heartfelt", "Historic", "Hushhush", "Hydraulic", "Ice", "Icy", "Idyllic", "Illegible", "Illbred", "Indelible", "International", "Jazzy", "Jumbo", "Jewish", "Joyful", "Jumpy", "Knobby", "Kindly", "Larval", "Lavishly", "Lopsided", "Marked", "Masochistic", "Masculine", "Marvelous", "Mawkish", "Meaty", "Medicated", "Membranous", "Milky", "Minimam", "Minimal", "Muggy", "Mulish", "Multistory", "Multiracial", "Multiplex", "Multiple", "Multinational", "Necessary", "Nifty", "Nippy", "Noble", "Nonfat", "Nordic", "Oblique", "Oblivious", "Obsessive", "Offbeat", "Olimpian", "Opaque", "Opulent", "Overpopulated", "Overgrown", "Overdue", "Overweight", "Pacific", "Paralytic", "Paper", "Pasty", "Perpetual", "Piquancy", "Pooped", "Possitive", "Presidential", "Pretentious", "Priceless", "Princely", "Professional", "Puzzling", "Queenly", "Raging", "Reducible", "Relative", "Returnable", "Sainted", "Screaming", "Seductive", "Sectional", "Self-service", "Selfless", "Self-imposed", "Self-reliance", "Self-satisfied", "Singlephanded", "Sizable", "Sleepless", "Social", "Spruce", "Spry", "Steam", "Steamy", "Strategic", "Strong-arm", "Tawdry", "Temperate", "Telling", "Temporary", "Contemporary", "Tenable", "Tireless", "Tiny", "Totalitarian", "Triplex", "Unasked", "Unanimous", "Unaffected", "Unattached", "Underground", "Venetian", "Venal", "Vitreous", "Vocal", "Volcanic", "Wanton", "Well-balanced", "Well-defined", "Well-bred", "Well-meant", "Western", "Eastern", "White-hot", "Wordless", "World-famous", "World-wide", "Yearly", "Yearlong", "Yonder", "Yon", "Pink"];
+
+//load nouns
+var nouns = ["Holiday", "Sky", "Misfortune", "Happiness", "Anger", "Joy", "Show", "Circus", "Tungsten", "Sea", "Snake", "Poison", "Music", "Rhythm", "Scene", "Atmosphere", "Premonition", "Chills", "Disease", "Flower Field", "Trip", "World Trip", "Mountain Range", "Family", "Great Family", "Boy", "Girl", "Young Man", "Demon", "Hero", "Slave", "King", "King", "Samba", "Tango", "Poland", "Belgium", "Resort", "Exotica", "One-room Apartment", "Suite", "Castle", "Suspect", "Judge", "Court", "Police", "Secret Police", "Brook", "Shadow", "Light", "Evening Sun", "Legend", "Freedom", "Freedom", "Voyage", "Metal", "Overtime Work", "Holiday Attendance", "Cafe", "Eestaurant", "Apartment", "Mezon", "Saloon", "Gallery", "Sommelier", "Enigma", "Religion", "Promise", "Agreement", "Ship", "Car", "Airship", "Airplane", "Concorde", "Hotel", "Airport", "Lobby", "Death God", "Devil", "Angel", "God", "Magritte", "Pistol", "Abusive Language", "Quarrel", "Floral Tribute", "Bouquet", "Dream", "Daydream", "Clown", "Clown", "Idol", "Control", "Worship", "Idol Worship", "Party", "Rondo", "Symphony", "Media", "Wheel", "Fireplace", "Factory", "Hiding Place", "Garden", "Colosseum", "Rotary", "Union", "Betrayal", "Smell", "Fragrance", "Bad Smell", "Perfume", "Refugee", "Settler", "Gypsy", "Daybreak", "Victory", "Defeat", "War", "Understanding", "Doubt", "Freak Show", "Continent", "Border", "Moisture", "Love", "Friend", "Good Friend", "Meaning", "Gaudi", "Parisian", "Parisienne", "Napoleon", "Don Quixote", "Windmill", "Dragon", "Asia", "Europe", "Blood", "Ground", "Glory", "Noise", "Water Tank", "Zoo", "Aquarium", "Museum", "Art Gallery", "Sculpture", "Art", "Zoo", "Planetarium", "Dinner", "Party", "Nearby Seas", "Gold Bullion", "Treasure", "Treasure Box", "Attendance", "Oversleeping", "Greeting", "Misfortune", "Season", "Actor", "Human Being", "Animal", "Humanism", "Moratorium", "Homestay", "Fashion", "Mode", "Figure", "Canvas", "Merry-go-round", "Musical", "Paris", "Berlin", "Army", "Soldier", "Chief", "Reality", "Nonfiction", "Canal", "Lisbon", "Danube", "Mountain Peak", "Locomotive", "Gear", "Draft", "Sabotage", "Engagement", "Marriage", "Divorce", "Premonition", "Magician", "Wind", "Assassin", "Soldier", "Flag", "Start", "Shout", "Smile", "Dance", "Dance", "Prima Donna", "Swan", "Hercules", "Miracle", "Way", "Path", "Habit", "Invitation", "Arrest", "Melancholy", "Syndrome", "Catastrophe", "Elegance", "Noble", "Pianist", "Cellist", "Composer", "Maestro", "Truffe", "Caviar", "Van Gogh", "Picasso", "Dali", "Rodin", "Worry", "No-confidence", "Trap", "Flame", "Tears", "Cinematograph", "Photograph", "Object", "Relations", "Relation", "Association", "Imagination", "Creation", "Brewing", "Construction", "Building", "Existence", "Recognition", "Hunting", "Hunting", "Capitalism", "Communism", "Community", "Charm", "Concierge", "Ideology", "Sigh", "Relief", "Probability", "Statistics", "Learning", "Megalopolis", "Cosmopolitan", "Futurismo", "Comparison", "Parents", "Child", "Subordination", "Slave", "King", "Noble", "Master", "Worker", "Consumer", "Political Power", "Statesman", "People", "General Public", "Command", "Comparison", "Pet", "Boy", "Adult", "Discrimination", "Patron", "President", "Employee", "Followers", "Arrangement", "Chief", "Follower", "Teacher", "Pupil", "Molecule", "Denominator", "Satellite", "Society", "Company", "Corporation", "Enterprise", "Group", "Cooperation", "Country", "Population Explosion", "Refugee", "Gathering", "Meeting", "Meeting Place", "School", "University", "Body", "Demonstration", "Parade", "Musical", "Theater", "Train", "War", "Dispute", "Crowd", "Group", "Party", "Athletic Meet", "Exercises", "Secret Meeting", "March", "Line", "Unoriginal", "Festival", "Disorder", "Chaos", "Fusion", "Union", "Victory", "Toast", "Opening Ceremony", "Closing Ceremony", "Isolation", "Members", "Responsibility", "Statistics", "Probability", "Town", "Corner", "Street", "Festival", "Rondo", "Dance", "Ball", "Concert", "Symphony Orchestra", "Army", "Village", "Tribe", "Activities", "Activities", "Classroom", "School", "Exercises", "Team", "Understanding", "Teamwork", "Warehouse", "Stock", "Shipping", "Harvest", "Festival", "Factory", "Dam", "Arrangement", "Chain", "Combination", "Office", "Tv Station", "Government", "Center", "General Public", "Noise", "Nose", "Head Office", "Branch", "Conference", "Conveyer Belt", "Bat", "Circus", "Betrayal", "Innocent", "Rotation", "Reversal", "Blackout", "Mirror", "Trap", "Trick", "Confusion", "Delusion", "Confusion", "Reverse", "Opposition", "Back", "Side", "Inside", "Negative", "Immorality", "Icicle", "Ring", "Turnover", "Overturning", "Worry", "Hesitation", "Secret", "Practice", "Training", "Concealment", "Article", "Departure", "Midnight", "Midnight", "Rest", "Sleeping", "Dream", "Black", "Darkness", "Twelve Midnight", "Cave", "Gap", "Hole", "Hinterland", "Moonlight", "Night", "Journey", "Loneliness", "Insect", "Human Being", "Child", "Wandering", "Drought", "Escape", "Ant", "Doll", "Continent", "Island", "Isolation", "Banishment", "Dwarf", "Giant", "Desert", "Zero", "Fairy", "Conscience", "Person", "Song", "Ballad", "Chorus", "Performance", "Scream", "Smile", "Movement", "Fan", "Food", "Extravagance", "Economy", "Greenhouse", "Freezing Room", "Smoking Room", "Non-smoking Room", "Operating Room", "Audio-visual Room", "Library", "Restaurant", "Hall", "Wash Room", "Locker Room", "Kiosk", "Conference Room", "Convention Bureau", "Lounge", "Waiting Room", "President's Office", "Control Room", "Sickroom", "Classroom", "Guard", "Bodyguard", "Soldier", "Secretary", "Gatekeeper", "Housekeeper", "Master", "Condition", "Remark", "Opinion", "Majority Decision", "Unanimousness", "Patient", "Futurism", "Subculture", "Counter Culture", "Hawk Side", "Dove Side", "Opponents", "Construction", "Syllabus", "Graduation", "Nude", "Defendant", "Assailant", "Victim", "Textbook", "Incantation", "Grudge", "Purpose", "Consciousness", "Year", "Life", "Family", "Excuse", "Complaint", "Bourgogne", "Bordeaux", "Crystal", "Turquoise", "Activation", "Healing", "Search", "Self-recognition", "Suit", "Judgment", "Talent", "Insanity", "Manual", "Logic", "Repetition", "Circulation", "Relativity", "Movement", "Wild Animal", "Crash", "Public Servant", "Traces", "Inertia", "Infinity", "World", "Reason", "Intelligence", "Faith", "Newcomer", "Aphorism", "Source", "Expansion", "View", "Anarchist", "Chosen People", "Ego", "Diagnosis", "Burial", "Writing", "Suppression", "Comrade", "Courage", "Company", "Heretic", "Egoist", "Communist", "Symphony", "Menu", "Olive", "Fugue", "Fabrication", "Prelude", "Overture", "Wave", "Preface", "Sentence", "Conclusion", "Disappearance", "World Map", "Cantata", "Paradox", "First-class Orchestra", "Second-class Orchestra", "Excitement", "Thunder", "Fool", "Respect", "Morals Hazard", "Ensemble", "Age", "Junior", "Gregorian", "Orion", "Sorcerer", "Zeus", "Nike", "Prometheus", "Stuffed Animal", "Specimen", "Experiment", "Failure", "Pain", "Evidence", "Ground", "Flowers", "Delicacy", "Mystery", "Child", "Appearance", "Surface", "Indication", "Expression", "Representation", "Principle", "Symbol", "Partner", "Nod", "Emotion", "Accounts", "Search", "Reference", "Exile", "Transgression", "Coeducation", "Overseas Student", "Permanent Resident", "Sunlight", "Whisper", "Grief", "Future", "Infinity", "Exhaustion", "Liquid Fuel", "Fuel", "Universe", "Space Travel", "Transmigration", "Loan", "Charter Rights", "Supply", "Demand", "Oversupply", "Inflation", "Contract", "Annulment", "Condition", "Light", "Smile", "Handshake", "Embrace", "Recuperation", "Breeding", "Greeting", "Pawnshop", "Palace", "Savior", "Spirit", "Husband", "Farmer", "Steward", "Domain", "Vagrant", "Farce", "Appearance", "Sonata", "Canon", "Questioning", "Happiness", "Rum", "Imitation", "Sham", "Setback", "Blacksmith", "Secretary", "Myth", "Husband", "Order", "Platform", "Circumstances", "Garden", "Courtyard", "Assignment", "Transfer", "Employment", "Seniority System", "Eroticism", "Tapping", "Messenger", "Rounding Off", "Petition", "Petitioner", "Visitor", "Sightseeing", "Correspondence", "Clerk", "Main Street", "Peak", "Top", "Main Street", "Boiler Room", "Room", "Big Room", "Bribe", "Figure", "Emergency", "Mankind", "One", "You", "Resident", "Kiss", "Eating", "Drinking", "Energy", "Elegy", "Polestar", "?", "!", "Entering", "Dropping Out", "Declination", "Substitute", "Misunderstanding", "Hunch", "Sight", "Smell", "Hearing", "Taste", "Pronoun", "Translation", "Interpretation", "Spice", "Pharmacist", "Dying Wish", "Doctor", "Quack", "Coward", "Ophthalmology", "Dermatology", "Department", "Surgery", "Operation", "Drip", "Gypsum", "Efforts", "Prosperity", "Perusal", "Microfilm", "Figure", "Genius", "Good Sense", "Auction", "Competition", "Indignation", "Relief", "Worry", "Country", "Town", "Village", "Watchman", "Bill", "Lead", "Review", "Neighborhood", "Cousin", "Relative", "Building", "Architecture", "Warehouse", "Feed", "Breakthrough", "Solution", "Evil Way", "Knack", "Soup", "Blue Cheese", "Olive Oil", "Peep", "Curse", "Desire", "Appetite", "Honor", "President", "Citizen", "Reporter", "journalist", "Newcomer", "Service Industry", "Minister", "Governor", "Village", "Headman", "Mayor", "Dead End", "Exit", "Entrance", "Journey", "Trip", "Farce", "Principle", "Competition", "Principle", "Choice Goods", "Entrepreneur", "Collaboration", "Motivation", "Artist", "Artwork", "Isotope", "Irony", "Cynic", "Nihilist", "Academicism", "Adrenaline", "Therapist", "Self-destruction", "Amateur", "Development", "Assistant", "Advice", "Policy", "Anarchy", "Analyst", "Ensemble", "Amplifier", "Initiative", "Method", "Connection", "Encouragement", "Egoist", "Economist", "Essayist", "Elevator", "Angel", "Depression", "Couture", "Store", "Costume", "Owner", "Observer", "Ombudsman", "Girl", "Member", "Boy", "Father", "Mother", "Family", "Guidebook", "Counseling", "Disaster", "Collapse", "Catastrophe", "Catheter", "Pipe", "Camouflage", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Quartet", "College", "Stimulant", "Tool", "Storage Room", "Career", "Cubism", "Kingmaker", "Purification", "Clinic", "Creole", "Homosexuality", "Genome", "Ghost Writer", "Globalism", "Contact", "Apartment", "Soldier", "Complex", "Jealousy", "Killer", "Prospect", "Youth", "Mysticism", "Breeze", "Loudspeaker", "Sectionalism", "Gelatine", "Census", "Zone", "Soft Landing", "Explosion Sound", "Soloist", "Dadaist", "Engine", "Movie Director", "Dead Stock", "Trouble", "Growth", "Nouvelle-Vague", "Nonenal", "Nomads", "Norm", "Barter", "Goods", "Pioneer", "Tour", "Patriot", "Warfare", "Partisan", "Fascist", "Feminist", "Self-respect", "Pride", "Plankton", "Free Action", "Bourgeoisie", "Station", "Pret-a-porter", "Broker", "Minority", "Machiavellism", "Millennium", "Client", "Life-style", "Motive", "Reportage", "Slogan", "Slope", "Pollution", "Agent", "Express", "Reportage", "Perch", "Surure", "Ninja", "Samurai", "Geisya", "Buffet", "Hospital", "Ideogram", "Cuckoo", "Pulley", "Cattleya", "Display", "Bee", "Chorela", "Baby-sitter", "Comedian", "Monarch", "Scheme", "Pores", "Two-wheeler", "Mermaid", "Merman", "Puppet", "Focus", "Banana", "Skyscraper", "Mushroom", "Pillar", "Neon", "Coffin", "Reward", "Tip", "Bark", "Landowner", "Crude", "Keyboard", "Palace", "Site", "Chameleon", "Gunpowder", "Magazine", "Capital", "X-rays", "Alchemist", "Laceration", "Topics", "Keepsake", "Vaccine", "Cartilage", "Mollusk", "Apology", "Smog", "Violet", "Luminosity", "Emperor", "Clinch", "Grillroom", "Mood", "Ace", "Hero", "Starlight", "Star", "Tootsy", "Shore", "Scruple", "Scrooge", "Preface", "Patch-work", "Obsession", "Misrule", "Mishmash", "Lunch", "Stage", "Caravan", "Breakfast", "Brewery", "Bottom", "Bottleneck", "Flock", "Lady", "Lobar Day", "merry-go-round", "Mercy", "Phenomenon", "Phoenix", "Title", "Name", "Tinderbox", "Wit", "Bauxite", "Chloroform", "Concept", "Crucible", "Daughter", "Defamatory", "Dilemma", "FBI", "CIA", "Flunky", "Juggler", "Kingdom", "Lecture", "Lodge", "Marxism", "Marshal", "Mommy", "Module", "Objection", "Omen", "Relativity", "Romanticism", "Romanticist", "Tot", "Triumph", "WWW", "Yeoman", "Yoga", "Yankee"];
+
+var roomNumber = 1;
+
+function run() {
+  var canvas = document.getElementById('room');
+  width = window.innerWidth;
+  height = window.innerHeight;
+  canvas.width = width - 10;
+  canvas.height = height - 10;
+  mid_x = width/2;
+  mid_y = height/2;
+
+  document.getElementById("room").src = room;
+  document.getElementById("room").width = window.innerWidth;
+  document.getElementById("room").height = window.innerHeight;
+
+  document.getElementById("black").src = black;
+  document.getElementById("black").width = window.innerWidth;
+  document.getElementById("black").height = window.innerHeight;
+
+  document.getElementById("gradient").src = gradient;
+  document.getElementById("gradient").width = window.innerWidth;
+  document.getElementById("gradient").height = window.innerHeight / 3;
+  
+  window.setInterval("exploreRoom()", 21000);
+  exploreRoom()
+}
+
+function exploreRoom() {
+  $( "#black" ).animate({
+    opacity: 1
+  }, 1000 );
+
+  $( "#text" ).animate({
+    opacity: 0
+  }, 1000 );
+
+  $( "#black" ).animate({
+    opacity: 1
+  }, 1000 );
+
+  $( "#text" ).animate({
+    opacity: 0
+  }, 1000 );
+
+  //figure out room contents
+  var numberOfPics=Math.floor(Math.random() * (5 + 1));
+  populateRoom(numberOfPics);
+
+  var roomTitle = adjectivces[Math.floor(Math.random() * (adjectivces.length + 1))] + " " + nouns[Math.floor(Math.random() * (nouns.length + 1))]
+  document.getElementById("text").innerHTML = "<h2>" + roomTitle + "</h2>Hotel Dangit Room No. " + roomNumber++;
+
+  $( "#text" ).animate({
+    opacity: 1
+  }, 1000 );
+
+  $( "#black" ).animate({
+    opacity: 0
+  }, 5000 );
+
+  $( "#text" ).animate({
+    opacity: 1
+  }, 4000 );
+
+  $( "#black" ).animate({
+    opacity: 0
+  }, 12000 );
+
+  $( "#text" ).animate({
+    opacity: 1
+  }, 12000 );
+
+  $( "#black" ).animate({
+    opacity: 1
+  }, 1000 );
+
+  $( "#text" ).animate({
+    opacity: 0
+  }, 1000 );
+
+  $( "#black" ).animate({
+    opacity: 1
+  }, 1000 );
+
+  $( "#text" ).animate({
+    opacity: 0
+  }, 1000 );
+}
+
+function populateRoom(numberOfPics) {
+  switch(numberOfPics) {
+    case 1:
+      document.getElementById("pic").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic").style.top=Math.floor(mid_y) + "px";
+      document.getElementById("pic").style.left=Math.floor(mid_x-128) + "px";
+      document.getElementById("pic").style.visibility="visible";
+
+      document.getElementById("pic2").style.visibility="hidden";
+      document.getElementById("pic3").style.visibility="hidden";
+      document.getElementById("pic4").style.visibility="hidden";
+      document.getElementById("pic5").style.visibility="hidden";
+      break;
+    case 2:
+      document.getElementById("pic").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic").style.top=Math.floor(mid_y) + "px";
+      document.getElementById("pic").style.left=Math.floor((mid_x/3)+256) + "px";
+      document.getElementById("pic").style.visibility="visible";
+
+      document.getElementById("pic2").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic2").style.top=Math.floor(mid_y) + "px";
+      document.getElementById("pic2").style.left=Math.floor((2*(mid_x/3)+256)) + "px";
+      document.getElementById("pic2").style.visibility="visible";
+
+      document.getElementById("pic3").style.visibility="hidden";
+      document.getElementById("pic4").style.visibility="hidden";
+      document.getElementById("pic5").style.visibility="hidden";
+      break;
+    case 3:
+      document.getElementById("pic").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic").style.top=Math.floor(mid_y) + "px";
+      document.getElementById("pic").style.left=Math.floor((mid_x/4)+256) + "px";
+      document.getElementById("pic").style.visibility="visible";
+
+      document.getElementById("pic2").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic2").style.top=Math.floor(mid_y) + "px";
+      document.getElementById("pic2").style.left=Math.floor((2*(mid_x/4)+256)) + "px";
+      document.getElementById("pic2").style.visibility="visible";
+
+      document.getElementById("pic3").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic3").style.top=Math.floor(mid_y) + "px";
+      document.getElementById("pic3").style.left=Math.floor((3*(mid_x/4)+256)) + "px";
+      document.getElementById("pic3").style.visibility="visible";
+      
+      document.getElementById("pic4").style.visibility="hidden";
+      document.getElementById("pic5").style.visibility="hidden";
+      break;
+    case 4:
+      document.getElementById("pic").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic").style.top=Math.floor(mid_y) + "px";
+      document.getElementById("pic").style.left=Math.floor((mid_x/4)+256) + "px";
+      document.getElementById("pic").style.visibility="visible";
+
+      document.getElementById("pic2").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic2").style.top=Math.floor(mid_y) + "px";
+      document.getElementById("pic2").style.left=Math.floor((2*(mid_x/4)+256)) + "px";
+      document.getElementById("pic2").style.visibility="visible";
+
+      document.getElementById("pic3").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic3").style.top=Math.floor(mid_y) + "px";
+      document.getElementById("pic3").style.left=Math.floor((3*(mid_x/4)+256)) + "px";
+      document.getElementById("pic3").style.visibility="visible";
+
+      document.getElementById("pic4").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic4").style.top=Math.floor(mid_y+128) + "px";
+      document.getElementById("pic4").style.left=Math.floor((2*(mid_x/4)+256)) + "px";
+      document.getElementById("pic4").style.visibility="visible";
+
+      document.getElementById("pic5").style.visibility="hidden";
+      break;
+    case 5:
+      document.getElementById("pic").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic").style.top=Math.floor(mid_y) + "px";
+      document.getElementById("pic").style.left=Math.floor((mid_x/4)+256) + "px";
+
+      document.getElementById("pic2").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic2").style.top=Math.floor(mid_y) + "px";
+      document.getElementById("pic2").style.left=Math.floor((2*(mid_x/4)+256)) + "px";
+
+      document.getElementById("pic3").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic3").style.top=Math.floor(mid_y) + "px";
+      document.getElementById("pic3").style.left=Math.floor((3*(mid_x/4)+256)) + "px";
+
+      document.getElementById("pic4").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic4").style.top=Math.floor(mid_y+128) + "px";
+      document.getElementById("pic4").style.left=Math.floor(((mid_x/3)+256)) + "px";
+
+      document.getElementById("pic5").src=imageFiles[Math.floor(Math.random() * (imageFiles.length + 1))];
+      document.getElementById("pic5").style.top=Math.floor(mid_y+128) + "px";
+      document.getElementById("pic5").style.left=Math.floor((2*(mid_x/3)+256)) + "px";
+      break;
+  }
+}
+    </script>
+  </head>
+  <body bgcolor="white" onload="run();" style="margin: 0px; padding: 0px">
+    <img id="room" style="position: absolute;" />
+    <img id="pic" src="" style="position: absolute;"/>
+    <img id="pic2" src="" style="position: absolute;"/>
+    <img id="pic3" src="" style="position: absolute;"/>
+    <img id="pic4" src="" style="position: absolute;"/>
+    <img id="pic5" src="" style="position: absolute;"/>
+    <img id="gradient" style="position: absolute; bottom: 0px;">
+    <img id="black" style="position: absolute;" />  
+    <div id="text" style="position: absolute; opacity: 0; font-weight: bold; text-align:center; vertical-align: text-bottom; width=100%; height=100%; bottom: 30px; left: 0; right: 0; margin: auto; color: transparent; text-shadow: 0 0 1px rgba(255,255,255,1);"/>
+  </body>
+</html>
+
+
